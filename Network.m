@@ -10,9 +10,13 @@ function [ output ] = Network( n,Train,nlayer, nneuron,W)
     output={};
     input = Read(Train,n,0);        %input value is nth row of train matrix
     [~,m]=size(input);                %set m be the size of input
-    for i=1:nlayer
+    %hidden layer
+    for i=1:nlayer-1
         input=Layer(input,nneuron,W{1,i}); %to other layers, we need to use the weight matrix W
         output=[output,input];
     end
+    %output layer
+    input=Layer(input,10,W{1,nlayer});%finally we classify it to 0-9
+    output=[output,input];
 end
 
